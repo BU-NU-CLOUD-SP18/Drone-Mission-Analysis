@@ -2,7 +2,7 @@
 
 ## Drone Mission Analysis
 
-Background: Drones are opening up entirely new paradigms for commercial businesses. These flying robots are quickly stepping in to do jobs that are dull, dirty and dangerous. The age of robotics is here, and today is like Internet 1995.In many applications a drone can do a better job than a human, and one of those is infrastructure inspection. Being new technology, there are no standards in place and the results of these inspections can vary depending on the skill and experience of the drone operator. A Rhode Island startup is working to change that. VertSpec is presently developing software that automates the inspection of Cell Phone Towers and Power lines. Their web-based system will program any drone to do a precision inspection that can be repeated over time.
+Background: Drones are opening up entirely new paradigms for commercial businesses. These flying robots are quickly stepping in to do jobs that are dull, dirty and dangerous. The age of robotics is here, and today is like Internet 1995.In many applications a drone can do a better job than a human, and one of those is infrastructure inspection. Being new technology, there are no standards in place and the results of these inspections can vary depending on the skill and experience of the drone operator.
 
 
 Project Specifics: Commercial drone operators can contract the company and download pre-program inspection missions then visit the inspection site and fly the mission. After the mission is complete, the operator needs to send back data to mobile application to double check that the inspection is complete. The application needs a way to extract data from the images taken during the inspection and send it back to their cloud service for verification. The data that needs to be extracted from the pictures are standard EXIF data, XMP (DJI Metadata) and a thumbnail of each image.
@@ -62,7 +62,7 @@ Global Architectural Structure Of the Project:
 
 
 
- 
+ ![alt text](http://url/to/img.png)
 
 Design Implications and Discussion:
 
