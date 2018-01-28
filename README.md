@@ -117,9 +117,8 @@ Incremental feature progression of the project.
 	1) Gathering the requirements
 	2) Deciding the technologies to be used
 	3) Project proposal documentation
-
-#### Role assignment
- - Learning curves for React-native, Image processing and metadata understanding  and AWS technology
+	4) Role assignment
+	5) Learning curves for React-native, Image processing and metadata understanding  and AWS technology
 	
 ### Iteration 2 :
 	1) Researching efficient ways of extracting image metadata
