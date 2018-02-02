@@ -88,7 +88,7 @@ People on-site flying the drones will have easy access to the cloud service usin
 ## 5. Challenges
 
 Extracting data exif and .xmp data  from the images uploaded to the application
-Determining an efficient algorithm for comparison of the extracted data from image and data from the plan as not all  data from the image is clearly understood and determining clever error margins based on data discrepancy.
+Determining an efficient algorithm for comparison of the extracted data from image and data from the plan as not all  data from the image is clearly understood and slo determining clever error margins based on data discrepancy.
 
 ** **
 
@@ -97,7 +97,7 @@ Determining an efficient algorithm for comparison of the extracted data from ima
  - The mobile device gets a mission plan from the cloud
  - After the mission is flown the application reads the image data from the SD card
  - The mobile devices uploads the image metadata to the cloud for analysis
- - The mobile application will display the status of the mission after the analysis is complete.
+ - The mobile application will determine if the mission was complete by comparing the mission waypoints with the image metadata
 
 #### Nice to have
  - Pictorial visualization of mission status
