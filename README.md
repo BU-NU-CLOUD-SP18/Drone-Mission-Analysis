@@ -95,10 +95,7 @@ Determining an efficient algorithm for comparison of the extracted data from ima
 ## 6. Acceptance criteria
 
  - The mobile device gets a mission plan from the cloud
- - The mission plan is downloaded to the drone from the mobile device
- - The drone flies the mission and takes a picture at each waypoint in the mission plan.  
- - The drone camera saves the images to an SD card
- - After the mission is flown the mobile device reads the image data from the SD card
+ - After the mission is flown the application reads the image data from the SD card
  - The mobile devices uploads the image metadata to the cloud for analysis
  - The mobile application will determine if the mission was complete by comparing the mission waypoints with the image metadata
 
