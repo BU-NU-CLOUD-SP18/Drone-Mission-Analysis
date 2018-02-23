@@ -129,6 +129,8 @@ Incremental feature progression of the project.
 
 ### Iteration 3:
 	1) Pseudo code for the comparison algorithm
+	2) Create UI for the application
+	3) Integrate login functionality into the mobile application.
 
 #### Features to be delivered:
 	1) UI wireframes for mobile application in react-native
@@ -137,6 +139,7 @@ Incremental feature progression of the project.
 
 ### Iteration 4:
 	1) Implementing the comparison algorithm
+	2) Integration Testing
 
 #### Features to be delivered:
 	1) Plan download functionality
@@ -144,6 +147,7 @@ Incremental feature progression of the project.
 
 ### Iteration 5:
 	1) Dry run of the comparison algorithm
+	2) Mission Status devition funcionality
 	2) Rigours system testing
 	3) Application handover
 
