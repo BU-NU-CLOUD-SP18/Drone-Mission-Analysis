@@ -1,0 +1,110 @@
+<html> EXIF PArse on nodejs more download
+   <head>
+     <script src = "http://127.0.0.1:8081/js/exif-js.js" type="text/javascript" ></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+     <script type = "text/javascript">
+     function getExif() {
+       var img1 = document.getElementById("file");
+    //alert(img1);
+    var metaData;
+      EXIF.getData(img1, function() {
+          var lat = (EXIF.getTag(this, "GPSLatitude") + "").split(",");
+          var long = (EXIF.getTag(this, "GPSLongitude") + "").split(",");
+            var alt = (EXIF.getTag(this, "GPSAltitude") + "");
+            var metaData = new Array();
+            var a = {'latitude': +lat[0] + (+lat[1] / 60)  + (+lat[2]/3600),
+                        'longitude': +long[0] + (+long[1] / 60)  + (+long[2]/3600),
+                        'altitude': alt
+                      };
+            //metaData.push();
+          /*  metaData.push({'latitude': 41.493372497004,'longitude': -71.1383414268493,'altitude': 7.62009286880493});
+            metaData.push({'latitude': 41.4946844007832,'longitude': -71.1344951391219, 'altitude': 6.09607410430908});
+            metaData.push({'latitude': 41.4962059649373,'longitude': -71.1297985911369, 'altitude': 6.09607410430908});
+            metaData.push({'latitude': 41.4970610286265,'longitude': -71.124431155622, 'altitude': 6.09607410430908});
+            metaData.push({'latitude': 41.4973493118721,'longitude': -71.1206418648362, 'altitude': 6.09607410430908});
+            metaData.push({'latitude': 41.4966110229467,'longitude': -71.1172646284102, 'altitude': 22.8602771759033});
+            metaData.push({'latitude': 41.4983567864466,'longitude': -71.1179137229919, 'altitude': 22.8602771759033});
+            metaData.push({'latitude': 41.49759339738,'longitude': -71.120467185974, 'altitude': 10.6681299209594});
+            metaData.push({'latitude': 41.497352325279,'longitude': -71.1244797706603, 'altitude': 7.62009286880493});
+            metaData.push({'latitude': 41.4964201713794,'longitude': -71.1298763751983, 'altitude': 7.62009286880493});
+            metaData.push({'latitude': 41.4952338656044,'longitude': -71.1339305341243, 'altitude': 7.62009286880493});
+            metaData.push({'latitude': 41.4945789348153,'longitude': -71.1358671079015, 'altitude': 15.2401857376098});
+            metaData.push({'latitude': 41.4938717468266,'longitude': -71.1375059187411, 'altitude': 22.8602771759033});
+            metaData.push({'latitude': 41.4932810846479,'longitude': -71.1385479569435, 'altitude': 45.7205543518066});*/
+
+            metaData.push({'latitude': 42.3379249009467,'longitude': -71.0870715655761, 'altitude': 45.7205543518066});
+            metaData.push({'latitude': 42.3404626416029,'longitude': -71.0756560840087, 'altitude': 45.7205543518066});
+            metaData.push({'latitude': 42.333737404954,'longitude': -71.0712787188964, 'altitude': 45.7205543518066});
+            metaData.push({'latitude': 42.331770454536,'longitude': -71.0806342639404, 'altitude': 45.7205543518066});
+            metaData.push({'latitude': 42.328026733795,'longitude': -71.0843249835448, 'altitude': 45.7205543518066});
+            //metaData =  [+lat[0] + (+lat[1] / 60)  + (+lat[2]/3600), +long[0] + (+long[1] / 60)  + (+long[2]/3600), alt];
+            //alert(metaData);
+            console.log(metaData);
+          document.getElementById("GPSLatitude").innerHTML = metaData[0].latitude;
+          document.getElementById("GPSLongitude").innerHTML = metaData[0].longitude;
+          document.getElementById("Altitude").innerHTML = metaData[0].altitude;
+          $.ajax({
+            url: 'http://127.0.0.1:8081/file_upload',
+            type: 'POST',
+            data: {'d': JSON.stringify(metaData)},
+          }).done(function(data) {
+            //console.log(data);
+            console.log(data);
+              var stat = data;
+              if(stat.Status == "Pass") {
+                document.getElementById("mission_status").innerHTML = "Mission Successful";
+              }
+              else {
+                document.getElementById("mission_status").innerHTML = "Mission Failed";
+                var missedPoints;
+                for(var i = 0; i<stat.MissedwayPoints.length;i++) {
+                  missedPoints = stat.MissionPlan[stat.MissedwayPoints[i]];
+                  $('#missedwaypoints').append('<tr><td>' + missedPoints.latitude + '</td><td>' + missedPoints.longitude + '</td><td>' + missedPoints[Object.keys(missedPoints)[2]]);
+                }
+              }
+          });
+        //  makeAndModel.innerHTML = `${make} ${model}`;
+      });
+
+    }
+     </script>
+      <title>File Uploading Form</title>
+   </head>
+
+   <body>
+      <h3>File Upload:</h3>
+      Select a file to upload: <br />
+    <!--  <form action="http://127.0.0.1:8081/file_upload" method="POST"  enctype = "multipart/form-data"> -->
+         <img src="http://127.0.0.1:8081/image1.jpg" id="file">
+         <br />
+         <input type = "button" id="upload_button"  onClick="getExif();" value = "Upload File" />
+       <!-- </form> -->
+       <h1 id="mission_status"></h1>
+       <table border = "1" id="missedwaypoints">
+         <tr>
+           <th>Latitude</th>
+           <th>Longitude</th>
+           <th>Altitude</th>
+         </tr>
+       </table>
+     </br></br></br>
+      <table border = "1" >
+      	<tr>
+      		<th> Information</th>
+      		<th> Value</th>
+      	</tr>
+      	<tr>
+      		<td>Latitude</td>
+      		<td id="GPSLatitude"></td>
+      	</tr>
+      	<tr>
+      		<td>Longitude</td>
+      		<td id ="GPSLongitude"></td>
+      	</tr>
+      	<tr>
+      		<td>Altitude</td>
+      		<td id ="Altitude"</td>
+      	</tr>
+      </table>
+   </body>
+</html>

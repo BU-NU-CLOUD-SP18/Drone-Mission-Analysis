@@ -1,0 +1,48 @@
+<script src="/exif-js.js"></script>
+
+<img src="/image1.jpg" height="30%" width="100%" id="img1" />
+<table border = "1">
+	<tr>
+		<th> Information</th>
+		<th> Value</th>
+	</tr>
+	<tr>
+		<td>Latitude</td>
+		<td id="GPSLatitude"></td>
+	</tr>
+	<tr>
+		<td>Longitude</td>
+		<td id ="GPSLongitude"></td>
+	</tr>
+	<tr>
+		<td>Altitude</td>
+		<td id ="Altitude"</td>
+	</tr>
+</table>
+</div>
+<br/>
+<script>
+window.onload=getExif;
+
+function getExif() {
+    var img1 = document.getElementById("img1");
+    EXIF.getData(img1, function() {
+        //var make = EXIF.getTag(this, "Make");
+        //var model = EXIF.getTag(this, "Model");
+		var GPSLat = EXIF.getTag(this, "GPSLatitude") + '';
+		var GPSLatAr = GPSLat.split(',');
+		var GPSLat = parseFloat(GPSLatAr[0]) + eval("GPSLatAr[2] / 3600") + eval("GPSLatAr[1] / 60") ;
+		console.log(GPSLat);
+		var GPSLong = EXIF.getTag(this, "GPSLongitude") + '';
+		var GPSLongAr = GPSLong.split(",");
+		var GPSLong = parseFloat(GPSLongAr[0]) + eval("GPSLongAr[1] / 60") + eval("GPSLongAr[2] / 3600");
+		var alt = EXIF.getTag(this, "GPSAltitude");
+        //var makeAndModel = document.getElementById("makeAndModel");
+        //makeAndModel.innerHTML = `${GPSLat} `;
+		document.getElementById("GPSLatitude").innerHTML = `${GPSLat}` + String.fromCharCode(176);
+		document.getElementById("GPSLongitude").innerHTML = `${GPSLong}` + String.fromCharCode(176);
+		document.getElementById("Altitude").innerHTML = `${alt}` + 'm';
+    });
+
+}
+</script>
