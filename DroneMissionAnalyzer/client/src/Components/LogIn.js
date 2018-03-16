@@ -120,7 +120,9 @@ class LogIn extends React.Component {
       errorMessage = exception.invalidCredentialsMessage || exception.message || exception;
     }
 
-    session = auth.currentSession(); // added by siddhesh
+    if(errorMessage === '') {
+        session = auth.currentSession(); // added by siddhesh
+    }
 
     this.setState({
       showMFAPrompt,
