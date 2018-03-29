@@ -1,0 +1,61 @@
+<div class="view-container profile-page">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-text pull-right no-right-margin">
+                <a class="navbar-link">
+                    <span class="glyphicon glyphicon-ok"></span>
+                </a>
+            </div>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#/user/{{model.userID}}">Profile</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <form>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input ng-model="model.user.username" type="text"
+                       class="form-control" id="username" name="username"
+                       placeholder="Username" disabled/>
+            </div>
+
+            <div class="alert alert-danger" ng-show="model.error">
+                {{model.error}}
+            </div>
+
+            <div class="alert alert-success" ng-show="model.message">
+                {{model.message}}
+            </div>
+
+            <div class="form-group">
+                <a class="btn btn-block btn-warning" ng-click="model.logout()">
+                    Logout
+                </a>
+            </div>
+
+            <div class="form-group">
+                <a class="btn btn-block btn-success" href="#/user/{{model.userID}}/mission">
+                    Validate Mission
+                </a>
+            </div>
+
+            <div class="form-group">
+                <a class="btn btn-block btn-primary" href="#/user/{{model.userID}}/plan">
+                    Download Plan
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container-fluid">
+            <div class="navbar-text pull-right no-right-margin">
+                <a class="navbar-link" href="#/user/{{model.userID}}">
+                    <span class="glyphicon glyphicon-user"></span>
+                </a>
+            </div>
+        </div>
+    </nav>
+</div>
