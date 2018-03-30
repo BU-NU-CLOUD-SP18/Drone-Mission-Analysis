@@ -9,6 +9,7 @@
         vm.images = [];
         vm.planData = [];
         vm.validate = validate;
+        vm.plan = [];
 
         function validate() {
             // validate image data against mission
@@ -23,6 +24,7 @@
         };
 
         vm.uploadPlan = function (file) {
+            vm.plan.push(file);
             if (file) {
                 Papa.parse(file, {
                     header: true,
