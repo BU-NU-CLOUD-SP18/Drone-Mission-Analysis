@@ -1,10 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="view-container profile-page">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-text pull-right no-right-margin">
+                <a class="navbar-link">
+                    <span class="glyphicon glyphicon-ok"></span>
+                </a>
+            </div>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#/user/{{model.userID}}">Profile</a>
+            </div>
+        </div>
+    </nav>
 
-</body>
-</html>
+    <div class="container-fluid">
+        <div class="list-group">
+            <a ng-repeat="i in model.plans" href="{{i.url}}" class="list-group-item list-group-item-action">
+                {{i.key}}
+            </a>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container-fluid">
+            <div class="navbar-text pull-right no-right-margin">
+                <a class="navbar-link" href="#/user/{{model.userID}}">
+                    <span class="glyphicon glyphicon-user"></span>
+                </a>
+            </div>
+        </div>
+    </nav>
+</div>

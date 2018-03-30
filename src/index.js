@@ -7,6 +7,8 @@ import session from "express-session";
 import helmet from "helmet";
 import compression from "compression";
 import {authenticate} from "./auth/service";
+import {planRouter} from "./plan/router";
+import {missionRouter} from "./mission/router";
 
 const app = express();
 
@@ -29,6 +31,9 @@ app.use(session({
 app.use(express.static('public'));
 app.get(vars.path.API_HEALTH_CHECK, (req, res) => res.send("OK"));  // should come before auth filter
 app.use(authRouter);
+app.use(planRouter);
+app.use(missionRouter);
+
 app.use(authenticate);
 
 app.get(vars.server.ROOT_PATH, (req, res) => res.send("DMA App Server"));
