@@ -1,4 +1,5 @@
 (function () {
     angular
-        .module("DroneMissionAnalyzer", ["ngRoute"]);
+        .module("DroneMissionAnalyzer", ["ngRoute", "ngFileUpload"]);
+
 })();
