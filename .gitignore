@@ -116,3 +116,4 @@ buck-out/
 */fastlane/report.xml
 */fastlane/Preview.html
 */fastlane/screenshots
+/package-lock.json
