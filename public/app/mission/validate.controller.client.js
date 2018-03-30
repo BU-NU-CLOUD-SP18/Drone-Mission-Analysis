@@ -6,54 +6,72 @@
     function validateController(MissionService, $routeParams) {
         let vm = this;
         vm.userID = $routeParams['uid'];
-        vm.files = [];
-        //vm.validate = validate;
+        vm.images = [];
+        vm.planData = [];
+        vm.validate = validate;
 
-        function init() {
-
+        function validate() {
+            // validate image data against mission
         }
 
-        vm.uploadFiles = function (files, i) {
-            vm.files[i] = files;
-            if (files && files.length) {
-                console.log(files);
+        vm.uploadImages = function (files) {
+            vm.images.push(files[0]);
+
+            if (vm.images && vm.images.length) {
+                console.log(vm.images);
+            }
+        };
+
+        vm.uploadPlan = function (file) {
+            if (file) {
+                Papa.parse(file, {
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: function (results) {
+                        console.log("Finished:", results.data);
+                        vm.planData = results.data;
+                    }
+                });
             }
         };
 
         vm.submit = function () {
-            let files = vm.files;
-            if (files && files.length) {
-              metaData = generateMetaData(files);
-              console.log(metaData);
+            let images = vm.images;
+            if (images && images.length) {
+                let metaData = generateMetaData(images);
+                console.log(metaData);
+                let missionData = {
+                    imageMetaData: metaData,
+                    planData: vm.planData
+                };
+                MissionService.validateMission(vm.userID, missionData)
+                    .then(function (response) {
+                        vm.success = response.data.Status;
+                    }, function (err) {
+                        vm.error = err.data.Status;
+                        console.log(err);
+                    })
             }
         };
 
-
-        init();
         function generateMetaData(files) {
-          let metaData = []
-          files.forEach(async (file) => {
-          //for(i = 0; i< files.length;i++) {
-              await EXIF.getData(file, function() {
-              var lat = EXIF.getAllTags(this);
-              metaData.push({'lat':lat});
-
-            })
-          });
-          //}
-          return metaData;
+            let metadata = [];
+            files.forEach(async (file) => {
+                await EXIF.getData(file, function () {
+                    let lat = (EXIF.getTag(this, "GPSLatitude") + "").split(",");
+                    let long = (EXIF.getTag(this, "GPSLongitude") + "").split(",");
+                    let alt = (EXIF.getTag(this, "GPSAltitude") + "");
+                    console.log("In or out?", lat, long, alt);
+                });
+            });
+            metadata.push({"latitude": 42.33966264, "longitude": -71.09559111, "altitude": 30});
+            metadata.push({"latitude": 42.34041702, "longitude": -71.09353563, "altitude": 30});
+            metadata.push({"latitude": 42.33961765, "longitude": -71.0929484, "altitude": 30});
+            metadata.push({"latitude": 42.339007, "longitude": -71.09336146, "altitude": 30});
+            metadata.push({"latitude": 42.33872151, "longitude": -71.09411785, "altitude": 30});
+            metadata.push({"latitude": 42.33908631, "longitude": -71.09517464, "altitude": 30});
+            return metadata;
         }
 
-        function getMetaData(file) {
-          EXIF.getData(file, function() {
-            var lat = (EXIF.getTag(this, "GPSLatitude") + "").split(",");
-            var long = (EXIF.getTag(this, "GPSLongitude") + "").split(",");
-            var alt = (EXIF.getTag(this, "GPSAltitude") + "");
-            return {lat, long, alt};
-          })
-        }
-        function mission() {
-            // validate image data against mission
-        }
     }
 })();

@@ -1,15 +1,6 @@
 <div class="view-container profile-page">
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-text pull-right no-right-margin">
-                <a class="navbar-link">
-                    <span class="glyphicon glyphicon-ok"></span>
-                </a>
-            </div>
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#/user/{{model.userID}}">Profile</a>
-            </div>
-        </div>
+    <nav class="navbar fixed-top navbar-light bg-light">
+        <a class="navbar-brand" href="#/user/{{model.userID}}#">Profile</a>
     </nav>
 
     <div class="container-fluid">
@@ -20,13 +11,12 @@
         </div>
     </div>
 
-    <nav class="navbar navbar-default navbar-fixed-bottom">
-        <div class="container-fluid">
-            <div class="navbar-text pull-right no-right-margin">
-                <a class="navbar-link" href="#/user/{{model.userID}}">
-                    <span class="glyphicon glyphicon-user"></span>
-                </a>
-            </div>
-        </div>
+    <nav class="navbar fixed-bottom navbar-light bg-light">
+        <!-- Image and text -->
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="#/user/{{model.userID}}">
+                <i class="fas fa-user"></i>
+            </a>
+        </nav>
     </nav>
 </div>

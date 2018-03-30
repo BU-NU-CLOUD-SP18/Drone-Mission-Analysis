@@ -8,8 +8,8 @@
             "validateMission": validateMission
         };
 
-        function validateMission(userID) {
-            return $http.get("/user/" + userID + "/mission");
+        function validateMission(userID, missionData) {
+            return $http.post("/user/" + userID + "/mission", missionData);
         }
     }
 })();

@@ -1,21 +1,54 @@
+<div class="view-container profile-page">
+    <nav class="navbar fixed-top navbar-light bg-light">
+        <a class="navbar-brand" href="#/user/{{model.userID}}#">Profile</a>
+    </nav>
 
-    <div class="comp-page">
-    <h2 class="text-center">Code Comparator</h2>
-    <div class="form-group">
-        <label>Upload Files:</label>
-        <div class="row text-center button-group">
-            <div class="col-sm-6">
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="customFile-1"
-                           ngf-select="model.uploadFiles($files, 0)"
-                           accept="image/*" ngf-max-size="5MB" multiple>
-                    <label class="custom-file-label" for="customFile-1">Student 1 Files</label>
+    <div class="container-fluid">
+        <h2 class="text-center">Analyze Mission</h2>
+        <div class="form-group">
+            <label>Upload Files:</label>
+            <div class="row button-group">
+                <div class="col-sm-12">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="customFile-1"
+                               ngf-select="model.uploadImages($files)"
+                               accept="image/*" ngf-max-size="5MB" multiple>
+                        <label class="custom-file-label" for="customFile-1">Upload Images</label>
+                    </div>
                 </div>
-          </div>
+                <div class="col-sm-12">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="customFile-2"
+                               ngf-select="model.uploadPlan($file)"
+                               accept=".csv" ngf-pattern="'.csv'">
+                        <label class="custom-file-label" for="customFile-2">Choose a mission plan</label>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="button" class="btn btn-lg btn-primary"
+                        ng-click="model.submit()">Validate Mission
+                </button>
+            </div>
+            <div ng-show="model.success" class="alert alert-success" role="alert">
+                {{model.success}}
+            </div>
+            <div ng-show="model.error" class="alert alert-danger" role="alert">
+                {{model.error}}
+            </div>
         </div>
-        <div class="text-center">
-        <button type="button" class="btn btn-lg btn-primary"
-                ng-click="model.submit()">Validate Mission
-        </button>
     </div>
-      </div>
+
+    <nav class="navbar fixed-bottom navbar-light bg-light">
+        <!-- Image and text -->
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="#/user/{{model.userID}}">
+                <i class="fas fa-user"></i>
+            </a>
+        </nav>
+    </nav>
+</div>
+
+<div class="comp-page">
+
+</div>

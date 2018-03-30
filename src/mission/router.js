@@ -4,5 +4,5 @@ import {validateMission} from "./service";
 
 export const missionRouter = express.Router();
 
-missionRouter.get(vars.path.mission.VALIDATE_MISSION, validateMission);
+missionRouter.post(vars.path.mission.VALIDATE_MISSION, validateMission);
 
