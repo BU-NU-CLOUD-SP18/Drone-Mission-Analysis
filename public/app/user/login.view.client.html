@@ -1,3 +1,48 @@
+<div class="login-page container-fluid" >
+    <form name="loginForm" class="form-signin" novalidate>
+        <div class="text-center">
+            <img class="mb-4" src="../../assets/images/drone.png" alt="" width="160" height="90">
+        </div>
+        <h3 class="mb-3 font-weight-normal lig">Please sign in</h3>
+        <div class="form-group">
+            <label for="username" class="sr-only">Username</label>
+            <input ng-model="user.username" type="text" id="username" name="username" class="form-control"
+                   placeholder="Username" required
+                   autofocus/>
+            <small ng-show="loginForm.$submitted && loginForm.username.$invalid"
+                   class="error">Username is required
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label for="password" class="sr-only">Password</label>
+            <input ng-model="user.password" type="password" id="password" name="password" class="form-control"
+                   placeholder="Password"
+                   required/>
+            <small ng-show="loginForm.password.$invalid && loginForm.$submitted"
+                   class="error">Password is required
+            </small>
+        </div>
+
+        <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="remember-me">
+            <label class="form-check-label lig" for="remember-me">Remember me</label>
+        </div>
+
+        <div ng-show="model.error" class="alert alert-danger" role="alert">
+            {{model.error}}
+        </div>
+        <button class="btn btn-lg btn-success btn-block" type="submit"
+                ng-click="loginForm.$valid && model.login(user)">
+            Sign in
+        </button>
+
+        <p class="mt-5 mb-3 text-muted lig text-center">&copy; 2017-2018</p>
+
+    </form>
+</div>
+
+<!--
 <div class="view-container login-page">
     <div class="container-fluid">
         <form name="loginForm" novalidate>
@@ -37,3 +82,4 @@
     </div>
 </div>
 
+-->

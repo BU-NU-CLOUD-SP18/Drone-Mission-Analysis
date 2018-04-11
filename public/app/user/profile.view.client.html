@@ -1,29 +1,19 @@
 <div class="view-container profile-page">
 
     <nav class="navbar fixed-top navbar-light bg-light">
-        <a class="navbar-brand" href="#/user/{{model.userID}}#">Profile</a>
+        <a class="navbar-brand" href="#/user/{{model.userID}}">Hello {{model.userID}}!</a>
     </nav>
 
     <div class="container-fluid">
         <form>
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input ng-model="model.user.username" type="text"
-                       class="form-control" id="username" name="username"
-                       placeholder="Username" disabled/>
+            <div class="text-center">
+                <img class="mb-4" src="../../assets/images/drone.png" alt="" width="160" height="90">
             </div>
-
-            <div class="alert alert-danger" ng-show="model.error">
-                {{model.error}}
-            </div>
-
-            <div class="alert alert-success" ng-show="model.message">
-                {{model.message}}
-            </div>
+            <h3 class="mb-3 font-weight-normal lig">Home</h3>
 
             <div class="form-group">
-                <a class="btn btn-block btn-warning" ng-click="model.logout()">
-                    Logout
+                <a class="btn btn-block btn-primary" href="#/user/{{model.userID}}/plan">
+                    Download Plan
                 </a>
             </div>
 
@@ -34,8 +24,8 @@
             </div>
 
             <div class="form-group">
-                <a class="btn btn-block btn-primary" href="#/user/{{model.userID}}/plan">
-                    Download Plan
+                <a class="btn btn-block btn-warning" ng-click="model.logout()">
+                    Logout
                 </a>
             </div>
         </form>
