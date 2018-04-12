@@ -44,7 +44,9 @@
   },
   "dependencies": {
     "amazon-cognito-identity-js": "^1.26.0",
+    "async": "^2.6.0",
     "aws-sdk": "^2.216.1",
+    "babel-polyfill": "^6.26.0",
     "babel-register": "^6.26.0",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",

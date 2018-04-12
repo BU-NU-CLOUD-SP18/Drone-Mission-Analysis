@@ -2,6 +2,10 @@ import {AuthenticationDetails, CognitoUser, CognitoUserPool} from "amazon-cognit
 import CognitoExpress from "cognito-express";
 import {vars} from "../config/common";
 
+let AWS = require('aws-sdk');
+
+AWS.config.region = 'us-east-1'; // Region
+
 const cognitoExpress = new CognitoExpress({
     region: vars.cognito.REGION,
     cognitoUserPoolId: vars.cognito.POOL_ID,
@@ -131,17 +135,65 @@ let getCurrentUser = () => {
     let userPool = new CognitoUserPool(data);
     let cognitoUser = userPool.getCurrentUser();
 
-    if (cognitoUser !== null) {
-        cognitoUser.getSession((err, session) => {
-            if (err) {
+    if (cognitoUser != null) {
+        cognitoUser.getSession(function (err, result) {
+            if (result) {
+                console.log('You are now logged in.');
+            } else {
                 console.log("Error occured while fetching Cognito session: ", err);
                 return null;
             }
-            console.log("Session validity: " + session.isValid());
         });
     }
 
     return cognitoUser;
+};
+
+let getAllPlansByUser = (callback) => {
+    let data = {
+        UserPoolId: vars.cognito.POOL_ID, // Your user pool id here
+        ClientId: vars.cognito.CLIENT_ID // Your client id here
+    };
+    let userPool = new CognitoUserPool(data);
+    let cognitoUser = userPool.getCurrentUser();
+
+    if (cognitoUser != null) {
+        cognitoUser.getSession(function (err, result) {
+            if (result) {
+                console.log('You are now logged in.');
+                AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+                    IdentityPoolId: 'us-east-1:18f3fa03-6321-41c8-b741-e26cb1e2debf',
+                    Logins: {
+                        'cognito-idp.us-east-1.amazonaws.com/us-east-1_93Nzmlf4k': result.getIdToken().getJwtToken()
+                    }
+                });
+            } else {
+                console.log("Error occured while fetching Cognito session: ", err);
+                return null;
+            }
+        });
+    }
+
+    //refreshes credentials using AWS.CognitoIdentity.getCredentialsForIdentity()
+    AWS.config.credentials.refresh((error) => {
+        if (error) {
+            console.error(error);
+        } else {
+            // Instantiate aws sdk service objects now that the credentials have been updated.
+            // example: var s3 = new AWS.S3();
+            let s3 = new AWS.S3();
+
+            let bucketParams = {
+                Bucket: 'drone-mission-plans',
+                Prefix: AWS.config.credentials.identityId + "/"
+            };
+
+            // Call S3 to create the bucket
+            s3.listObjects(bucketParams, function (err, data) {
+                callback(err, data);
+            });
+        }
+    });
 };
 
 let findCurrentUser = (req, res) => {
@@ -208,5 +260,5 @@ let authenticate = (req, res, next) => {
     });
 
 };
-export {login, logout, authenticate, findCurrentUser, isLoggedIn};
+export {login, logout, authenticate, findCurrentUser, isLoggedIn, getAllPlansByUser};
 
