@@ -5,7 +5,6 @@
 
     function downloadController(PlanService, $routeParams) {
         let vm = this;
-        let objPrefix = "https://s3.amazonaws.com/";
         vm.userID = $routeParams['uid'];
 
         vm.plans = [];
@@ -15,13 +14,14 @@
             PlanService.getAllPlansByUser(vm.userID)
                 .then(function (response) {
                     let data = response.data;
-                    let bucketName = data.Name;
                     let objects = data.Contents;
 
                     objects.forEach((obj) => {
+                        let split = obj.Key.split("/");
+                        let planName = split[split.length - 1];
                         let mapping = {
-                            key: obj.Key,
-                            url: objPrefix + bucketName + "/" + obj.Key
+                            key: planName,
+                            url: obj.preSignedURL
                         };
                         vm.plans.push(mapping);
                     });
