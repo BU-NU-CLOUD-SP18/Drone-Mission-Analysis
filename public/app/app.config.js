@@ -51,6 +51,15 @@
                     isLoggedIn: isLoggedIn,
                 }
             })
+            .when("/map", {
+                templateUrl: 'app/maps.html',
+                controller: 'mapsController',
+                controllerAs: "model",
+                title: 'Maps',
+                resolve: {
+                    isLoggedIn: isLoggedIn,
+                }
+            })
             .when("/", {
                 redirectTo: "/login"
             })

@@ -153,3 +153,5 @@ form.ng-submitted .ng-dirty.ng-invalid {
     margin: 0;
     border: 0;
 }
+
+map, div[map] {display:block; width:600px; height:400px;}

@@ -44,13 +44,14 @@ let isClose = (data, newMetaData, oldMetaData) => {
           if(headingD1 < headingD2) {
             return true;
           }
-          else if(headingD1 == headingD2)
+          else if(headingD1 == headingD2) {
           let gimbalPitchAngleD1 = calculateGimbalPitchAngleDifference(data.gimbalPitchAngle, newMetaData.gimbalPitchAngle);
           let gimbalPitchAngleD2 = calculateGimbalPitchAngleDiffenrece(data.gimbalPitchAngle, oldMetaData.gimbalPitchAngle);
           if(gimbalPitchAngleD1 < gimbalPitchAngleD2) {
             return true;
           }
         }
+      }
     }
     return false;
 };
