@@ -33,20 +33,20 @@ let isClose = (data, newMetaData, oldMetaData) => {
         return true;
     }
     else if (d1 === d2) {
-        let altD1 = calculateAltitudeDifference(data.altitude, newMetaData.altitude);
-        let altD2 = calculateAltitudeDifference(data.altitude, oldMetaData.altitude);
+        let altD1 = calculateAltitudeDifference(data['altitude(m)'], newMetaData.altitude);
+        let altD2 = calculateAltitudeDifference(data['altitude(m)'], oldMetaData.altitude);
         if (altD1 < altD2) {
             return true;
         }
         else if (altD1 === altD2) {
-            let headingD1 = calculateHeadingDifference(data.heading, newMetaData.heading);
-            let headingD2 = calculateHeadingDifference(data.heading, oldMetaData.heading);
+            let headingD1 = calculateHeadingDifference(data['heading(deg)'], newMetaData.heading);
+            let headingD2 = calculateHeadingDifference(data['heading(deg)'], oldMetaData.heading);
             if (headingD1 < headingD2) {
                 return true;
             }
             else if (headingD1 === headingD2) {
-                let gimbalPitchAngleD1 = calculateGimbalPitchAngleDifference(data.gimbalPitchAngle, newMetaData.gimbalPitchAngle);
-                let gimbalPitchAngleD2 = calculateGimbalPitchAngleDifference(data.gimbalPitchAngle, oldMetaData.gimbalPitchAngle);
+                let gimbalPitchAngleD1 = calculateGimbalPitchAngleDifference(data.gimbalpitchangle, newMetaData.gimbalPitchAngle);
+                let gimbalPitchAngleD2 = calculateGimbalPitchAngleDifference(data.gimbalpitchangle, oldMetaData.gimbalPitchAngle);
 
                 if (gimbalPitchAngleD1 < gimbalPitchAngleD2) {
                     return true;
@@ -104,9 +104,8 @@ let getMissedWaypoints = (dataArr, metaData, nearestPoints) => {
         d = (d / 1000).toPrecision(4);
         d = (d > 1 ? Number(d) : d);
         //greater than 50 metres
-        if (d > 0.05 || calculateAltitudeDifference(dataArr[i].altitude, curMeta.altitude) > 10 ||
-            calculateHeadingDifference(dataArr[i].heading, curMeta.heading) > 10 ||
-            calculateGimbalPitchAngleDifference(dataArr[i].gimbalPitchAngle, curMeta.gimbalPitchAngle) > 10) {
+        if (d > 0.05 || calculateAltitudeDifference(dataArr[i]['altitude(m)'], curMeta.altitude) > 50 ||
+            calculateGimbalPitchAngleDifference(dataArr[i].gimbalpitchangle, curMeta.gimbalPitchAngle) > 30) {
             missedWayPoints.push(i);
         }
     }

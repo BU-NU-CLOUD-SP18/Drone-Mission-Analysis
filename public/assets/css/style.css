@@ -155,3 +155,8 @@ form.ng-submitted .ng-dirty.ng-invalid {
 }
 
 map, div[map] {display:block; width:600px; height:400px;}
+
+
+.list-group-flush .list-group-item {
+    padding: 0;
+}

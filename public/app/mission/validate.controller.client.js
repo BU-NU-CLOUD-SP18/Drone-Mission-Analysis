@@ -18,7 +18,6 @@
                 console.log(vm.images);
 
                 vm.metaData = generateMetaData(vm.images);
-                console.log("Metadata: " + vm.metaData);
             }
         };
 
@@ -37,6 +36,8 @@
         };
 
         vm.validate = function () {
+            console.log("Metadata: " + JSON.stringify(vm.metaData));
+
             let missionData = {
                 imageMetaData: vm.metaData,
                 planData: vm.planData
