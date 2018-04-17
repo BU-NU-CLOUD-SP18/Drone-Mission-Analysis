@@ -154,4 +154,14 @@ form.ng-submitted .ng-dirty.ng-invalid {
     border: 0;
 }
 
-map, div[map] {display:block; width:600px; height:400px;}
+#map {
+    width: 400px;
+    height: 350px;
+    align-self: center;
+  }
+
+  #map1 {
+    width: 400px;
+    height: 350px;
+    align-self: center;
+  }
