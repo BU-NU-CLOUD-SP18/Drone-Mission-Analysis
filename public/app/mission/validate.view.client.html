@@ -14,7 +14,9 @@
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="customFile-1"
                                ngf-select="model.uploadImages($files)"
-                               accept="image/*" multiple>
+                               accept="image/*" multiple
+                               *ngf-thumbnail="file" 
+                        ngf-size="{width: 20, height: 20, quality: 0.9}" >
                         <label class="custom-file-label" for="customFile-1">Upload Images</label>
                     </div>
                     <ul class="list-group list-group-flush">
