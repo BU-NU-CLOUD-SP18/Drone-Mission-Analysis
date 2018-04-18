@@ -17,6 +17,9 @@ const config = {
         },
         "mission": {
             "VALIDATE_MISSION": "/user/:userID/mission"
+        },
+        "maps" : {
+          "INITIALIZE_MAPS" : "/user/:userID/maps"
         }
     },
     "server": {
