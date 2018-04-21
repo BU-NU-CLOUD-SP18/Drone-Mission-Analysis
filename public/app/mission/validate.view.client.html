@@ -15,15 +15,16 @@
                         <input type="file" class="custom-file-input" id="customFile-1"
                                ngf-select="model.uploadImages($files)"
                                accept="image/*" multiple
-                               *ngf-thumbnail="file" 
-                        ngf-size="{width: 20, height: 20, quality: 0.9}" >
+                               *ngf-thumbnail="file"
+                               ngf-size="{width: 20, height: 20, quality: 0.9}"
+                               ngf-as-background="boolean">
                         <label class="custom-file-label" for="customFile-1">Upload Images</label>
                     </div>
-                    <ul class="list-group list-group-flush">
+                    <!--<ul class="list-group list-group-flush">
                         <li ng-repeat="f in model.images" class="list-group-item">
                             {{f.name}}
                         </li>
-                    </ul>
+                    </ul>-->
                 </div>
             </div>
         </div>
