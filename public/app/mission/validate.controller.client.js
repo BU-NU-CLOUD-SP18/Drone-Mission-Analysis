@@ -3,7 +3,7 @@
         .module("DroneMissionAnalyzer")
         .controller("ValidateController", validateController);
 
-    function validateController(MissionService, $routeParams) {
+    function validateController(MissionService, $routeParams, $rootScope) {
         let vm = this;
         vm.userID = $routeParams['uid'];
         vm.images = [];
@@ -42,12 +42,16 @@
                 imageMetaData: vm.metaData,
                 planData: vm.planData
             };
+            $rootScope.imageMetaData = vm.metaData;
+            $rootScope.planData = vm.planData;
             MissionService.validateMission(vm.userID, missionData)
                 .then(function (response) {
                     vm.success = response.data.Status;
+                    $rootScope.missedWayPoints = response.data.MissedwayPoints;
                 }, function (err) {
                     vm.error = err.data.Status;
                     console.log(err);
+                    $rootScope.missedWayPoints = err.data.MissedwayPoints;
                 })
         };
 
