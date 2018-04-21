@@ -4,4 +4,4 @@ import {initializaMap} from "./service";
 
 export const mapRouter = express.Router();
 
-missionRouter.post(vars.path.maps.initializeMap, initializaMap);
+missionRouter.post(vars.path.maps.INITIALIZE_MAPS, initializaMap);

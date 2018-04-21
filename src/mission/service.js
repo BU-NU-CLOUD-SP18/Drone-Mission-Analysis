@@ -1,3 +1,5 @@
+import {vars} from "../config/common";
+
 let validateMission = (req, res) => {
     let imageMetaData = req.body.imageMetaData;
     let planData = req.body.planData;
@@ -57,16 +59,32 @@ let isClose = (data, newMetaData, oldMetaData) => {
     return false;
 };
 
+let calculateDifference = (data1, data2) => {
+    return Math.abs(data1 - data2);
+};
+
 let calculateGimbalPitchAngleDifference = (gimbalPitch1, gimbalPitch2) => {
-    return Math.abs(gimbalPitch1 - gimbalPitch2);
+
+    return calculateDifference(parseFloat(gimbalPitch1), parseFloat(gimbalPitch2));
 };
 
 let calculateHeadingDifference = (heading1, heading2) => {
-    return Math.abs(heading1 - heading2);
+
+    heading1 = evaluateHeading(parseFloat(heading1));
+    heading2 = evaluateHeading(parseFloat(heading2));
+    return calculateDifference(heading1, heading2);
 };
 
+let evaluateHeading = (data) => {
+
+    if(data < 0)
+        return 360 + data;
+    return data;
+};
+
+
 let calculateAltitudeDifference = (alt1, alt2) => {
-    return Math.abs(alt1 - alt2);
+    return calculateDifference(alt1, alt2);
 };
 
 let degreesToRadians = (degrees) => {
@@ -101,11 +119,14 @@ let getMissedWaypoints = (dataArr, metaData, nearestPoints) => {
     for (let i = 0; i < dataArr.length; i++) {
         let curMeta = metaData[nearestPoints[i]];
         let d = calculateDistance(dataArr[i], curMeta);
-        d = (d / 1000).toPrecision(4);
-        d = (d > 1 ? Number(d) : d);
+        //d = (d / 1000).toPrecision(4);
+        //d = (d > 1 ? Number(d) : d);
         //greater than 50 metres
-        if (d > 0.05 || calculateAltitudeDifference(dataArr[i]['altitude(m)'], curMeta.altitude) > 50 ||
-            calculateGimbalPitchAngleDifference(dataArr[i].gimbalpitchangle, curMeta.gimbalPitchAngle) > 30) {
+        //console.log(vars.error_margins.POSITION_ERROR_MARGIN);
+        if (d > vars.error_margins.POSITION_ERROR_MARGIN ||
+            calculateAltitudeDifference(dataArr[i]['altitude(m)'], curMeta.altitude) > vars.error_margins.ALTITUDE_ERROR_MARGIN ||
+            calculateHeadingDifference(dataArr[i]['heading(deg)'], curMeta.heading) > vars.error_margins.HEADING_ERROR_MARGIN ||
+            calculateGimbalPitchAngleDifference(dataArr[i].gimbalpitchangle, curMeta.gimbalPitchAngle) > vars.error_margins.GIMBAL_PITCH_ERROR_MARGIN) {
             missedWayPoints.push(i);
         }
     }
