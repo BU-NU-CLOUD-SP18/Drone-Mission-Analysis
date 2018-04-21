@@ -43,7 +43,7 @@ const config = {
         "AUTH": "/auth",
     },
     "error_margins" : {
-        "POSITION_ERROR_MARGIN" : 0.05,
+        "POSITION_ERROR_MARGIN" : 5, // meters
         "ALTITUDE_ERROR_MARGIN" : 10,
         "HEADING_ERROR_MARGIN" : 10,
         "GIMBAL_PITCH_ERROR_MARGIN" : 10

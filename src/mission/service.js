@@ -113,8 +113,8 @@ let calculateDistance = (data1, data2) => {
 
     let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     let d = R * c;
-    d = (d / 1000).toPrecision(4);
-    d = (d > 1 ? Number(d) : d);
+  //  d = (d / 1000).toPrecision(4);
+    //d = (d > 1 ? Number(d) : d);
     return d;
 };
 
