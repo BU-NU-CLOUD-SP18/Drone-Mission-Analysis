@@ -1,3 +1,5 @@
+import {vars} from "../config/common";
+
 let validateMission = (req, res) => {
     let imageMetaData = req.body.imageMetaData;
     let planData = req.body.planData;
@@ -33,20 +35,20 @@ let isClose = (data, newMetaData, oldMetaData) => {
         return true;
     }
     else if (d1 === d2) {
-        let altD1 = calculateAltitudeDifference(data.altitude, newMetaData.altitude);
-        let altD2 = calculateAltitudeDifference(data.altitude, oldMetaData.altitude);
+        let altD1 = calculateAltitudeDifference(data['altitude(m)'], newMetaData.altitude);
+        let altD2 = calculateAltitudeDifference(data['altitude(m)'], oldMetaData.altitude);
         if (altD1 < altD2) {
             return true;
         }
         else if (altD1 === altD2) {
-            let headingD1 = calculateHeadingDifference(data.heading, newMetaData.heading);
-            let headingD2 = calculateHeadingDifference(data.heading, oldMetaData.heading);
+            let headingD1 = calculateHeadingDifference(data['heading(deg)'], newMetaData.heading);
+            let headingD2 = calculateHeadingDifference(data['heading(deg)'], oldMetaData.heading);
             if (headingD1 < headingD2) {
                 return true;
             }
             else if (headingD1 === headingD2) {
-                let gimbalPitchAngleD1 = calculateGimbalPitchAngleDifference(data.gimbalPitchAngle, newMetaData.gimbalPitchAngle);
-                let gimbalPitchAngleD2 = calculateGimbalPitchAngleDifference(data.gimbalPitchAngle, oldMetaData.gimbalPitchAngle);
+                let gimbalPitchAngleD1 = calculateGimbalPitchAngleDifference(data.gimbalpitchangle, newMetaData.gimbalPitchAngle);
+                let gimbalPitchAngleD2 = calculateGimbalPitchAngleDifference(data.gimbalpitchangle, oldMetaData.gimbalPitchAngle);
 
                 if (gimbalPitchAngleD1 < gimbalPitchAngleD2) {
                     return true;
@@ -57,16 +59,32 @@ let isClose = (data, newMetaData, oldMetaData) => {
     return false;
 };
 
+let calculateDifference = (data1, data2) => {
+    return Math.abs(data1 - data2);
+};
+
 let calculateGimbalPitchAngleDifference = (gimbalPitch1, gimbalPitch2) => {
-    return Math.abs(gimbalPitch1 - gimbalPitch2);
+
+    return calculateDifference(parseFloat(gimbalPitch1), parseFloat(gimbalPitch2));
 };
 
 let calculateHeadingDifference = (heading1, heading2) => {
-    return Math.abs(heading1 - heading2);
+
+    heading1 = evaluateHeading(parseFloat(heading1));
+    heading2 = evaluateHeading(parseFloat(heading2));
+    return calculateDifference(heading1, heading2);
 };
 
+let evaluateHeading = (data) => {
+
+    if(data < 0)
+        return 360 + data;
+    return data;
+};
+
+
 let calculateAltitudeDifference = (alt1, alt2) => {
-    return Math.abs(alt1 - alt2);
+    return calculateDifference(alt1, alt2);
 };
 
 let degreesToRadians = (degrees) => {
@@ -101,12 +119,14 @@ let getMissedWaypoints = (dataArr, metaData, nearestPoints) => {
     for (let i = 0; i < dataArr.length; i++) {
         let curMeta = metaData[nearestPoints[i]];
         let d = calculateDistance(dataArr[i], curMeta);
-        d = (d / 1000).toPrecision(4);
-        d = (d > 1 ? Number(d) : d);
+        //d = (d / 1000).toPrecision(4);
+        //d = (d > 1 ? Number(d) : d);
         //greater than 50 metres
-        if (d > 0.05 || calculateAltitudeDifference(dataArr[i].altitude, curMeta.altitude) > 10 ||
-            calculateHeadingDifference(dataArr[i].heading, curMeta.heading) > 10 ||
-            calculateGimbalPitchAngleDifference(dataArr[i].gimbalPitchAngle, curMeta.gimbalPitchAngle) > 10) {
+        //console.log(vars.error_margins.POSITION_ERROR_MARGIN);
+        if (d > vars.error_margins.POSITION_ERROR_MARGIN ||
+            calculateAltitudeDifference(dataArr[i]['altitude(m)'], curMeta.altitude) > vars.error_margins.ALTITUDE_ERROR_MARGIN ||
+            calculateHeadingDifference(dataArr[i]['heading(deg)'], curMeta.heading) > vars.error_margins.HEADING_ERROR_MARGIN ||
+            calculateGimbalPitchAngleDifference(dataArr[i].gimbalpitchangle, curMeta.gimbalPitchAngle) > vars.error_margins.GIMBAL_PITCH_ERROR_MARGIN) {
             missedWayPoints.push(i);
         }
     }

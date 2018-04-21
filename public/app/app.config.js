@@ -51,8 +51,8 @@
                     isLoggedIn: isLoggedIn,
                 }
             })
-            .when("/map", {
-                templateUrl: 'app/maps.html',
+            .when("/user/:uid/maps", {
+                templateUrl: 'app/maps/maps.html',
                 controller: 'mapsController',
                 controllerAs: "model",
                 title: 'Maps',

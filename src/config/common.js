@@ -17,6 +17,9 @@ const config = {
         },
         "mission": {
             "VALIDATE_MISSION": "/user/:userID/mission"
+        },
+        "maps" : {
+          "INITIALIZE_MAPS" : "/user/:userID/maps"
         }
     },
     "server": {
@@ -38,6 +41,12 @@ const config = {
     },
     "router": {
         "AUTH": "/auth",
+    },
+    "error_margins" : {
+        "POSITION_ERROR_MARGIN" : 0.05,
+        "ALTITUDE_ERROR_MARGIN" : 10,
+        "HEADING_ERROR_MARGIN" : 10,
+        "GIMBAL_PITCH_ERROR_MARGIN" : 10
     }
 };
 
