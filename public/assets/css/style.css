@@ -154,23 +154,18 @@ form.ng-submitted .ng-dirty.ng-invalid {
     border: 0;
 }
 
-
 #map {
     width: 400px;
     height: 350px;
     align-self: center;
-  }
+}
 
-  #map1 {
+#map1 {
     width: 400px;
     height: 350px;
     align-self: center;
-  }
-
-
-
+}
 
 .list-group-flush .list-group-item {
     padding: 0;
 }
-
