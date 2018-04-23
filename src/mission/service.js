@@ -16,13 +16,16 @@ let validateMission = (req, res) => {
 
     let missedWayPoints = getMissedWaypoints(planData, imageMetaData, nearestPoints);
     if (missedWayPoints.length === 0) {
-        res.status(200).send({"Status": "Mission Pass!"});
+        res.status(200).send({
+            "Status": "Mission Pass!",
+            "MissedwayPoints": missedWayPoints
+        });
     }
     else {
         res.status(501).send({
             "Status": "Mission Fail!",
             "MissedwayPoints": missedWayPoints,
-            "MissionPlan": planData
+            //"MissionPlan": planData
         });
     }
 };
@@ -30,7 +33,6 @@ let validateMission = (req, res) => {
 let isClose = (data, newMetaData, oldMetaData) => {
     let d1 = calculateDistance(data, newMetaData);
     let d2 = calculateDistance(data, oldMetaData);
-
     if (d1 < d2) {
         return true;
     }
@@ -110,8 +112,10 @@ let calculateDistance = (data1, data2) => {
         Math.sin(long_delta / 2) * Math.sin(long_delta / 2);
 
     let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-    return R * c;
+    let d = R * c;
+  //  d = (d / 1000).toPrecision(4);
+    //d = (d > 1 ? Number(d) : d);
+    return d;
 };
 
 let getMissedWaypoints = (dataArr, metaData, nearestPoints) => {
@@ -119,8 +123,7 @@ let getMissedWaypoints = (dataArr, metaData, nearestPoints) => {
     for (let i = 0; i < dataArr.length; i++) {
         let curMeta = metaData[nearestPoints[i]];
         let d = calculateDistance(dataArr[i], curMeta);
-        //d = (d / 1000).toPrecision(4);
-        //d = (d > 1 ? Number(d) : d);
+
         //greater than 50 metres
         //console.log(vars.error_margins.POSITION_ERROR_MARGIN);
         if (d > vars.error_margins.POSITION_ERROR_MARGIN ||
