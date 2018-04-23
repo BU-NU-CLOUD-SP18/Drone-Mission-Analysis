@@ -2,10 +2,11 @@
 import {getAllPlansByUser as accessValidatedPlans} from "../auth/service";
 import each from 'async/each';
 
-let AWS = require('aws-sdk');
-AWS.config.region = 'us-east-1'; // Region
+import {config, CognitoIdentityCredentials, S3} from 'aws-sdk';
 
-let s3 = new AWS.S3();
+config.region = 'us-east-1'; // Region
+
+let s3 = new S3();
 
 let getAllPlansByUser = (req, res) => {
     accessValidatedPlans((err, data) => {

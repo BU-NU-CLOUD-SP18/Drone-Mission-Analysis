@@ -2,9 +2,9 @@ import {AuthenticationDetails, CognitoUser, CognitoUserPool} from "amazon-cognit
 import CognitoExpress from "cognito-express";
 import {vars} from "../config/common";
 
-let AWS = require('aws-sdk');
+import {CognitoIdentityCredentials, config, S3} from 'aws-sdk';
 
-AWS.config.region = 'us-east-1'; // Region
+config.region = vars.cognito.REGION; // Region
 
 const cognitoExpress = new CognitoExpress({
     region: vars.cognito.REGION,
@@ -161,8 +161,8 @@ let getAllPlansByUser = (callback) => {
         cognitoUser.getSession(function (err, result) {
             if (result) {
                 console.log('You are now logged in.');
-                AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-                    IdentityPoolId: 'us-east-1:18f3fa03-6321-41c8-b741-e26cb1e2debf',
+                config.credentials = new CognitoIdentityCredentials({
+                    IdentityPoolId: vars.cognito.IDENTITY_POOL_ID,
                     Logins: {
                         'cognito-idp.us-east-1.amazonaws.com/us-east-1_93Nzmlf4k': result.getIdToken().getJwtToken()
                     }
@@ -175,17 +175,17 @@ let getAllPlansByUser = (callback) => {
     }
 
     //refreshes credentials using AWS.CognitoIdentity.getCredentialsForIdentity()
-    AWS.config.credentials.refresh((error) => {
+    config.credentials.refresh((error) => {
         if (error) {
             console.error(error);
         } else {
             // Instantiate aws sdk service objects now that the credentials have been updated.
             // example: var s3 = new AWS.S3();
-            let s3 = new AWS.S3();
+            let s3 = new S3();
 
             let bucketParams = {
                 Bucket: 'drone-mission-plans',
-                Prefix: AWS.config.credentials.identityId + "/"
+                Prefix: config.credentials.identityId + "/"
             };
 
             // Call S3 to create the bucket
