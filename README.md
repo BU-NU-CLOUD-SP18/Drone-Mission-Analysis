@@ -31,9 +31,8 @@ The end user of this project would be commercial drone operators or employees au
  - Authentication mechanism to access the system (to download mission plans, upload drone downloaded images to check whether mission is complete or not)
  - Allows authenticated users to download their mission plans.
  - Extract metadata like XMP, EXIF and Thumbnails from the drone-taken images for analysis.
- - Upload the meta data to a custom cloud service (back end logic) for validation against the mission plan (can do client-side processing also, open ended?)
- - Provide a result as either ‘Mission Complete’ or an instruction to re-fly all or part of the mission.
- - Throughout the process, provides a visualization of the mission status (nice to have)
+ - Upload the meta data for validation against the mission plan (client-side processing)
+ - Provide a result as either ‘Mission Complete’ or 'Mission Fail' with a visualization using Google Maps.
 
 #### What will not be covered:
 
@@ -58,8 +57,8 @@ To store the mission plans. S3 will act as an object base store for the mission 
 #### Amazon Lambda: 
 To compute the comparison algorithm and determine status of the mission.
 
-#### Mobile Application:  
-The mobile app will be built in react-native due to its compatibility with android and ios and strong performance on mobile environments.Also additionally, npm modules will be used for image metadata extraction and processing.  
+#### Mobile/Web- Based Application:  
+The mobile app is built using NodeJS, AngularJS and  npm modules are used for image metadata extraction and processing.  
 
  ![Global Architectural Structure Of the Project:](https://github.com/BU-NU-CLOUD-SP18/Drone-Mission-Analysis/blob/master/DMA-Architecture.jpeg)
 
@@ -85,10 +84,11 @@ People on-site flying the drones will have easy access to the cloud service usin
 
 ** **
 
-## 5. Challenges
+## 5. Challenges that were expected and were solved
 
-Extracting data exif and .xmp data  from the images uploaded to the application
+Extracting data exif and .xmp data  from the images uploaded to the application. This was solved by using npm exif module.
 Determining an efficient algorithm for comparison of the extracted data from image and data from the plan as not all  data from the image is clearly understood and slo determining clever error margins based on data discrepancy.
+Decided on an error margin of 50 metres.
 
 ** **
 
@@ -96,11 +96,12 @@ Determining an efficient algorithm for comparison of the extracted data from ima
 
  - The mobile device gets a mission plan from the cloud
  - After the mission is flown the application reads the image data from the SD card
- - The mobile devices uploads the image metadata to the cloud for analysis
+ - The mobile devices uploads the images and the metadata is calcuated
+ - The metadata is compared with the mission plan and the difference between the metadata and the mission plan is calculated
  - The mobile application will display the status of the mission after the analysis is complete
+ -Pictorial visualisation using Google Maps is also shown
 
-#### Nice to have
- - Pictorial visualization of mission status
+#### Future goals
  - Report generation of the data comparison.
  - Registering a new user and creating login credentials for the user on mobile app.
  - Functionality of uploading a new mission plan to the cloud application using a web interface. 
@@ -144,15 +145,22 @@ Incremental feature progression of the project.
 #### Features to be delivered:
 	1) Plan download functionality
 	2) Multiple Image upload functionality
-
+	
 ### Iteration 5:
 	1) Dry run of the comparison algorithm
 	2) Mission Status devition funcionality
-	2) Rigours system testing
-	3) Application handover
+	3) Testing of the comparison algorithm
 
 #### Features to be delivered:
 	- Mission status generation functionality
+	
+### Iteration 6:
+	1) Rigours system testing
+	2) Visualisation of the mission plans and images captured by drone
+	2) Application handover
+
+#### Features to be delivered:
+	- Complete running application 
 
 
 
