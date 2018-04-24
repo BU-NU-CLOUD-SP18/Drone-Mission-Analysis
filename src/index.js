@@ -29,6 +29,8 @@ app.use(session({
 
 // configure a public directory to host static content
 app.use(express.static('public'));
+app.use("/node_modules", express.static('node_modules'));
+
 app.get(vars.path.API_HEALTH_CHECK, (req, res) => res.send("OK"));  // should come before auth filter
 
 // routes defined

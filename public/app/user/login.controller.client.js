@@ -19,7 +19,6 @@
                         }
                     }, function (err) {
                         vm.error = err.data.message;
-                        console.log(err);
                     });
             } else {
                 vm.error = 'Please enter correct credentials';

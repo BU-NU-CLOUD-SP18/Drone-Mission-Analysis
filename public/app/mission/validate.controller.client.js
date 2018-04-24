@@ -11,57 +11,87 @@
         vm.plan = [];
         vm.metaData = [];
 
+        vm.toggle = {};
+        vm.toggle.switch = false;
+
         vm.uploadImages = function (files) {
             vm.images = files.slice();
+            vm.toggle.switch = false;
+            vm.error = "";
+            vm.success = "";
 
             if (vm.images && vm.images.length) {
-                console.log(vm.images);
-
                 vm.metaData = generateMetaData(vm.images);
             }
         };
 
         vm.uploadPlan = function (file) {
+            vm.plan = [];
             vm.plan.push(file);
+
+            vm.toggle.switch = false;
+            vm.error = "";
+            vm.success = "";
+
             if (file) {
                 Papa.parse(file, {
                     header: true,
                     skipEmptyLines: true,
                     complete: function (results) {
-                        console.log("Finished:", results.data);
                         vm.planData = results.data;
                     }
                 });
             }
         };
 
+        let sort = () => {
+            let sorted = [];
+
+            vm.images.forEach(image => {
+                sorted.push((vm.metaData.filter(metaObj => image.name ===  metaObj.name))[0]);
+            });
+
+            return sorted;
+        };
+
         vm.validate = function () {
-            console.log("Metadata: " + JSON.stringify(vm.metaData));
+            if(vm.images.length === 0) {
+                vm.error = "Please upload images";
+                return;
+            }
+
+            if(vm.plan.length === 0) {
+                vm.error = "Please upload a plan";
+                return;
+            }
+
+            vm.metaData = sort();
 
             let missionData = {
                 imageMetaData: vm.metaData,
                 planData: vm.planData
             };
-            MissionService.validateMission(vm.userID, missionData)
-                .then(function (response) {
-                    vm.success = response.data.Status;
-                }, function (err) {
-                    vm.error = err.data.Status;
-                    console.log(err);
-                })
-        };
 
-        /*
-                metadata.push({"latitude": 42.33966264, "longitude": -71.09559111, "altitude": 30});
-                metadata.push({"latitude": 42.34041702, "longitude": -71.09353563, "altitude": 30});
-                metadata.push({"latitude": 42.33961765, "longitude": -71.0929484, "altitude": 30});
-                metadata.push({"latitude": 42.339007, "longitude": -71.09336146, "altitude": 30});
-                metadata.push({"latitude": 42.33872151, "longitude": -71.09411785, "altitude": 30});
-                metadata.push({"latitude": 42.33908631, "longitude": -71.09517464, "altitude": 30});
-        */
+            vm.metaData_coords = vm.metaData.map((obj) => {
+                return [obj.latitude, obj.longitude];
+            });
+
+            vm.planData_coords = vm.planData.map((obj) => {
+                return [obj.latitude, obj.longitude];
+            });
+
+            MissionService.validateMission(vm.userID, missionData)
+                .then(response => {
+                    vm.success = response.data.Status;
+                }, (err) => {
+                    vm.error = err.data.Status;
+                    vm.missedWayPoints = err.data.MissedwayPoints;
+                });
+        };
 
         function generateMetaData(files) {
             let metadata = [];
+
             files.forEach(async (file) => {
                 EXIF.enableXmp();
                 await EXIF.getData(file, function () {
@@ -81,20 +111,21 @@
                         "longitude": declong,
                         "altitude": alt,
                         "heading": xmpData['drone-dji:FlightYawDegree'],
-                        "gimbalPitchAngle": xmpData['drone-dji:GimbalPitchDegree']
+                        "gimbalPitchAngle": xmpData['drone-dji:GimbalPitchDegree'],
+                        "name" : file.name
                     });
                 });
             });
+
             return metadata;
         }
-
 
         function convertDMSToDD(degrees, minutes, seconds, direction) {
             let dd = Number(degrees) + Number(minutes) / 60 + Number(seconds) / (60 * 60);
 
             if (direction === "S" || direction === "W") {
                 dd = dd * -1;
-            } // Don't do anything for N or E
+            }
             return dd;
         }
 

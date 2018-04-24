@@ -5,6 +5,8 @@
         .run(setPageTitle);
 
     function configuration($routeProvider, $httpProvider) {
+        $httpProvider.interceptors.push('httpLoaderInterceptor');
+        
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
         $httpProvider.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
 
@@ -47,15 +49,6 @@
                 controller: 'ValidateController',
                 controllerAs: "model",
                 title: 'Validate Mission',
-                resolve: {
-                    isLoggedIn: isLoggedIn,
-                }
-            })
-            .when("/user/:uid/maps", {
-                templateUrl: 'app/maps/maps.html',
-                controller: 'mapsController',
-                controllerAs: "model",
-                title: 'Maps',
                 resolve: {
                     isLoggedIn: isLoggedIn,
                 }

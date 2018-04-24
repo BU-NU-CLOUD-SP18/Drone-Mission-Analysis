@@ -8,35 +8,40 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js"
-            integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
-            crossorigin="anonymous"></script>
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
 
     <link type="text/css" rel="stylesheet" href="assets/css/style.css">
 
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js"
+            integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
+            crossorigin="anonymous">
+    </script>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-ZohFkSUCflhvo63mWeHaup64mltv7Go&callback=mapsController">
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-ZohFkSUCflhvo63mWeHaup64mltv7Go">
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-route.min.js"></script>
 
-    <script src="assets/js/exif-js.js"></script>
-    <script src="assets/js/ng-file-upload-shim.js"></script>
-    <script src="assets/js/ng-file-upload.js"></script>
-    <script src="assets/js/papaparse.min.js"></script>
- 
-    <script src="app/ng-map.min.js"></script>
+    <script src="/node_modules/exif-js/exif.js"></script>
+    <script src="/node_modules/ng-file-upload/dist/ng-file-upload-shim.min.js"></script>
+    <script src="/node_modules/ng-file-upload/dist/ng-file-upload.min.js"></script>
+    <script src="/node_modules/papaparse/papaparse.min.js"></script>
+    <script src="/node_modules/ngmap/build/scripts/ng-map.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ui-bootstrap4@3.0.3/dist/ui-bootstrap-tpls.js"></script>
+
 
     <script src="app/app.module.js"></script>
+    <script src="app/loader/http.loader.client.js"></script>
+
     <script src="app/app.config.js"></script>
+    <script src="app/app.directive.js"></script>
 
     <!-- controllers -->
     <script src="app/user/login.controller.client.js"></script>
     <script src="app/user/profile.controller.client.js"></script>
     <script src="app/plan/download.controller.client.js"></script>
     <script src="app/mission/validate.controller.client.js"></script>
-    <script src="app/maps/maps.controller.js"></script>
 
     <!-- services -->
     <script src="app/user/user.service.client.js"></script>
@@ -44,8 +49,14 @@
     <script src="app/mission/mission.service.client.js"></script>
 
 </head>
-<body >
-<div ng-view ></div>
+
+
+
+<body class="ng-cloak">
+<div ng-view class="ng-cloak"></div>
+<div class="loading style-2" http-loader="">
+    <img src="assets/images/loader2.gif" class="loading-wheel"></img>
+</div>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -18,8 +18,8 @@ const config = {
         "mission": {
             "VALIDATE_MISSION": "/user/:userID/mission"
         },
-        "maps" : {
-          "INITIALIZE_MAPS" : "/user/:userID/maps"
+        "maps": {
+            "INITIALIZE_MAPS": "/user/:userID/maps"
         }
     },
     "server": {
@@ -37,18 +37,22 @@ const config = {
         "POOL_ID": "us-east-1_93Nzmlf4k",
         "CLIENT_ID": "baps0i51gretrhpu8vdif6d1l",
         "TOKEN_TO_USE": "access",   //Possible Values: access | id
-        "TOKEN_EXPIRE_TIME": 3600000
+        "TOKEN_EXPIRE_TIME": 3600000,
+        "IDENTITY_POOL_ID": "us-east-1:18f3fa03-6321-41c8-b741-e26cb1e2debf",
+        "IDENTITY_PROVIDER": "cognito-idp.us-east-1.amazonaws.com/us-east-1_93Nzmlf4k"
     },
     "router": {
         "AUTH": "/auth",
     },
-    "error_margins" : {
-        "POSITION_ERROR_MARGIN" : 0.05,
-        "ALTITUDE_ERROR_MARGIN" : 10,
-        "HEADING_ERROR_MARGIN" : 10,
-        "GIMBAL_PITCH_ERROR_MARGIN" : 10
+    "mission": {
+        "error_margin": {
+            "POSITION": 0.05,  //RADIANS
+            "ALTITUDE": 10, //METRES
+            "HEADING": 10,  //DEGREE
+            "GIMBAL_PITCH": 10  //DEGREE
+        }
     }
+
 };
 
 export {config as vars};
-
