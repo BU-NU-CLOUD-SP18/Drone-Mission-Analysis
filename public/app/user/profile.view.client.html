@@ -12,20 +12,20 @@
             <h3 class="mb-3 font-weight-normal lig">Home</h3>
 
             <div class="form-group">
-                <a class="btn btn-block btn-primary" href="#/user/{{model.userID}}/plan">
-                    Download Plan
+                <a class="btn btn-block btn-lg btn-primary" href="#/user/{{model.userID}}/plan">
+                    <i class="fas fa-file-excel"></i> &nbsp; Download Plan
                 </a>
             </div>
 
             <div class="form-group">
-                <a class="btn btn-block btn-success" href="#/user/{{model.userID}}/mission">
-                    Validate Mission
+                <a class="btn btn-block btn-lg btn-success" href="#/user/{{model.userID}}/mission">
+                    <i class="fas fa-check-circle"></i> &nbsp; Validate Mission
                 </a>
             </div>
 
             <div class="form-group">
-                <a class="btn btn-block btn-warning" ng-click="model.logout()">
-                    Logout
+                <a class="btn btn-block btn-lg btn-warning" ng-click="model.logout()">
+                    <i class="fas fa-sign-out-alt"></i> &nbsp; Sign Out
                 </a>
             </div>
         </form>

@@ -44,12 +44,15 @@ const config = {
     "router": {
         "AUTH": "/auth",
     },
-    "error_margins": {
-        "POSITION_ERROR_MARGIN": 0.05,
-        "ALTITUDE_ERROR_MARGIN": 10,
-        "HEADING_ERROR_MARGIN": 10,
-        "GIMBAL_PITCH_ERROR_MARGIN": 10
+    "mission": {
+        "error_margin": {
+            "POSITION": 0.05,  //RADIANS
+            "ALTITUDE": 10, //METRES
+            "HEADING": 10,  //DEGREE
+            "GIMBAL_PITCH": 10  //DEGREE
+        }
     }
+
 };
 
 export {config as vars};

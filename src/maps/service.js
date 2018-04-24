@@ -1,3 +1,0 @@
-let initializaMap = (req, res) => {
-  
-};

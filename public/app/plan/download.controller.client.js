@@ -8,7 +8,6 @@
         vm.userID = $routeParams['uid'];
 
         vm.plans = [];
-        vm.download = download;
 
         function init() {
             PlanService.getAllPlansByUser(vm.userID)
@@ -25,16 +24,14 @@
                         };
                         vm.plans.push(mapping);
                     });
+                    if (objects.length === 0) {
+                        vm.error = "Oops..You don't have any alloted plans!";
+                    }
                 }, function (err) {
                     vm.error = err.data.message;
-                    console.log(err);
                 });
         }
 
         init();
-
-        function download() {
-            // fetch logic
-        }
     }
 })();

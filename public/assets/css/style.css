@@ -169,3 +169,80 @@ form.ng-submitted .ng-dirty.ng-invalid {
 .list-group-flush .list-group-item {
     padding: 0;
 }
+
+.btn-switch {
+    position: relative;
+    display: block;
+    width: 50px;
+    height: 25px;
+    cursor: pointer;
+    background-color: #F27878;
+    border: 2px solid #F27878;
+    border-radius: 40px;
+    margin: auto;
+}
+
+.btn-switch-circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    height: 21px;
+    width: 21px;
+    background-color: #fff;
+    border-radius: 40px;
+}
+
+.btn-switch--on {
+    background-color: #80CDBE;
+    border: 2px solid #80CDBE;
+}
+
+.btn-switch-circle--on {
+    left: auto;
+    right: 0;
+}
+
+.loading {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .5);
+}
+
+.loading-wheel {
+    width: 20px;
+    height: 20px;
+    margin-top: -40px;
+    margin-left: -40px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    border-width: 30px;
+    border-radius: 50%;
+    -webkit-animation: spin 1s linear infinite;
+}
+
+.style-2 .loading-wheel {
+    border-style: double;
+    border-color: #ccc transparent;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0);
+    }
+    100% {
+        -webkit-transform: rotate(-360deg);
+    }
+}
+
+.list-inline {
+    margin-bottom: 0
+}
