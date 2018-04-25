@@ -1,4 +1,4 @@
-<div class="view-container profile-page wallpaper">
+<div class="view-container mission-validate-page wallpaper">
     <nav class="navbar fixed-top navbar-light bg-light ">
         <a class="navbar-brand" href="#/user/{{model.userID}}/mission">Analyze Mission</a>
     </nav>
@@ -35,7 +35,8 @@
                 <div class="col-sm-12">
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="customFile-2"
-                               ngf-select="model.uploadPlan($file)">
+                               ngf-select="model.uploadPlan($file)"
+                               accept=".xlsx, .xls, .csv">
                         <label class="custom-file-label" for="customFile-2">Choose a mission plan</label>
                     </div>
                     <ul class="list-group list-group-flush text-muted">
@@ -64,7 +65,7 @@
     </div>
 
     <div class="container-fluid" ng-show="model.error && model.missedWayPoints">
-        <h5 class="text-center">Show Details?</h5>
+        <h5 class="text-center">Get Details?</h5>
 
         <div class="btn-switch" ng-class="{'btn-switch--on':model.toggle.switch}"
              ng-model="model.toggle.switch" ng-click="model.toggle.switch = !model.toggle.switch">

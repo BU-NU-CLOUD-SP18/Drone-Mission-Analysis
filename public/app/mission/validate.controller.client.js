@@ -48,29 +48,34 @@
             let sorted = [];
 
             vm.images.forEach(image => {
-                sorted.push((vm.metaData.filter(metaObj => image.name ===  metaObj.name))[0]);
+                sorted.push((vm.metaData.filter(metaObj => image.name === metaObj.name))[0]);
             });
 
             return sorted;
         };
 
         vm.validate = function () {
-            if(vm.images.length === 0) {
+            if (vm.images.length === 0) {
                 vm.error = "Please upload images";
                 return;
             }
 
-            if(vm.plan.length === 0) {
+            if (vm.plan.length === 0) {
                 vm.error = "Please upload a plan";
                 return;
             }
 
-            vm.metaData = sort();
+            vm.metaData = vm.metaData.length !== 0 ? sort() : [];
 
             let missionData = {
                 imageMetaData: vm.metaData,
                 planData: vm.planData
             };
+
+            if (vm.metaData.length !== vm.planData.length) {
+                vm.error = "Upload plan and images don't correspond.";
+                return;
+            }
 
             vm.metaData_coords = vm.metaData.map((obj) => {
                 return [obj.latitude, obj.longitude];
@@ -95,6 +100,11 @@
             files.forEach(async (file) => {
                 EXIF.enableXmp();
                 await EXIF.getData(file, function () {
+                    if (Object.keys(file.xmpdata).length === 0 && file.xmpdata.constructor === Object ||
+                        Object.keys(file.exifdata).length === 0 && file.exifdata.constructor === Object) {
+                        vm.error = "No metadata found in the images";
+                        return;
+                    }
                     let xmpData = file.xmpdata['x:xmpmeta']['rdf:RDF']['rdf:Description']['@attributes'];
                     let lat = (EXIF.getTag(this, "GPSLatitude") + "").split(",");
                     let long = (EXIF.getTag(this, "GPSLongitude") + "").split(",");
@@ -112,7 +122,7 @@
                         "altitude": alt,
                         "heading": xmpData['drone-dji:FlightYawDegree'],
                         "gimbalPitchAngle": xmpData['drone-dji:GimbalPitchDegree'],
-                        "name" : file.name
+                        "name": file.name
                     });
                 });
             });

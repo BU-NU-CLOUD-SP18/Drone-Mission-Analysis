@@ -1,8 +1,5 @@
 <div class="login-page container-fluid" >
     <form name="loginForm" class="form-signin" novalidate>
-        <div class="text-center">
-            <img class="mb-4" >
-        </div>
         <h3 class="mb-3 font-weight-normal lig label-align font-color">Please sign in</h3>
         <div class="form-group">
             <label for="username" class="sr-only">Username</label>
@@ -50,44 +47,3 @@
     </form>
 </div>
 
-<!--
-<div class="view-container login-page">
-    <div class="container-fluid">
-        <form name="loginForm" novalidate>
-            <h1>Login</h1>
-            <div class="form-group">
-                <label for="username" class="sr-only">Username</label>
-                <input ng-model="user.username" type="text"
-                       class="form-control" id="username" name="username"
-                       placeholder="Username" required/>
-                <div ng-show="loginForm.$submitted && loginForm.username.$invalid"
-                     class="error">Username is required
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="password" class="sr-only">Password</label>
-                <input ng-model="user.password" type="password"
-                       class="form-control" id="password" name="password"
-                       placeholder="Password" required/>
-                <div ng-show="loginForm.password.$invalid && loginForm.$submitted"
-                     class="error">Password is required
-                </div>
-            </div>
-            <div ng-show="model.error" class="alert alert-danger" role="alert">
-                {{model.error}}
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-sm-12 local">
-                        <button type="submit" class="btn btn-block btn-primary"
-                                ng-click="loginForm.$valid && model.login(user)">
-                            Login
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-
--->

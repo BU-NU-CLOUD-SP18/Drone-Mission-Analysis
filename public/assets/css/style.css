@@ -2,17 +2,16 @@
     margin-bottom: 8px;
 }
 
-body{
+body {
     background: url("../../assets/images/cloudsAnimated.gif");
     background-size: cover;
 }
-.login-page, .register-page, .profile-page, .website-list-page, .list-page, .widget-list-page,
-.widget-chooser-page, .widget-edit-page {
+
+.login-page, .profile-page, .mission-validate-page, .plan-download-page {
     max-width: 320px;
-    padding-top: 200%;
-    padding: 170px 0;
+    padding: 100px 0;
     margin: 0 auto;
-    
+
 }
 
 .no-right-margin {
@@ -249,14 +248,18 @@ form.ng-submitted .ng-dirty.ng-invalid {
     }
 }
 
-.label-align{
+.label-align {
     text-align: center;
 }
 
-.font-color{
-    color:black;
+.font-color {
+    color: black;
 }
 
-.list-inline {
+.mission-validate-page .list-inline {
     margin-bottom: 0;
+}
+
+.mission-validate-page .list-group-item {
+    background-color: inherit;
 }
