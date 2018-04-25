@@ -1,17 +1,16 @@
 // Load the SDK for JavaScript
 import {getAllPlansByUser as accessValidatedPlans} from "../auth/service";
+import {vars} from "../config/common";
 import each from 'async/each';
+import {config, S3} from 'aws-sdk';
 
-import {config, CognitoIdentityCredentials, S3} from 'aws-sdk';
-
-config.region = 'us-east-1'; // Region
+config.region = vars.cognito.REGION;
 
 let s3 = new S3();
 
 let getAllPlansByUser = (req, res) => {
     accessValidatedPlans((err, data) => {
         if (err) {
-            console.log("Error", err);
             res.status(404).send(err);
         } else {
             data.Contents.shift();
@@ -22,7 +21,6 @@ let getAllPlansByUser = (req, res) => {
                 if (err) {
                     // One of the iterations produced an error.
                     // All processing will now stop.
-                    console.log("Error", err);
                     res.status(404).send(err);
                 } else {
                     res.status(200).send(data);
@@ -34,7 +32,7 @@ let getAllPlansByUser = (req, res) => {
 
 let setPreSignedURL = (content, callback) => {
     let params = {
-        Bucket: 'drone-mission-plans',
+        Bucket: vars.s3.plan_bucket.NAME,
         Key: content.Key
     };
 

@@ -24,6 +24,7 @@
                         };
                         vm.plans.push(mapping);
                     });
+
                     if (objects.length === 0) {
                         vm.error = "Oops..You don't have any alloted plans!";
                     }

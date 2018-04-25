@@ -64,7 +64,7 @@
         </div>
     </div>
 
-    <div class="container-fluid" ng-show="model.error && model.missedWayPoints">
+    <div class="container-fluid" ng-show="model.error && model.evaluatedWayPoints">
         <h5 class="text-center">Get Details?</h5>
 
         <div class="btn-switch" ng-class="{'btn-switch--on':model.toggle.switch}"
@@ -88,7 +88,7 @@
             </marker>
             <marker ng-repeat="p in model.metaData"
                     position="[{{p.latitude}}, {{p.longitude}}]"
-                    icon='http://maps.google.com/mapfiles/ms/icons/{{model.missedWayPoints[$index].status === "fail" ? "red" : "yellow"}}.png'
+                    icon='http://maps.google.com/mapfiles/ms/icons/{{model.evaluatedWayPoints[$index].status === "fail" ? "red" : "yellow"}}.png'
                     label="'{{$index}}'">
             </marker>
             <shape name="polyline" id="foo"
@@ -115,7 +115,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="i in model.missedWayPoints" class="{{i.reason ? 'table-danger' : 'table-success'}}">
+                <tr ng-repeat="i in model.evaluatedWayPoints" class="{{i.reason ? 'table-danger' : 'table-success'}}">
                     <td>{{$index + 1}}</td>
                     <td>{{i.status}}</td>
                     <td>{{i.reason ? i.reason : 'Success'}}</td>

@@ -5,19 +5,14 @@ let validateMission = (req, res) => {
     let imageMetaData = req.body.imageMetaData;
     let planData = req.body.planData;
 
-    let missedWayPoints = getMissedWaypoints(planData, imageMetaData);
+    let evaluatedWayPoints = evaluateWayPoints(planData, imageMetaData);
 
-    if ((missedWayPoints.filter(point => point.status === "fail")).length > 0) {
-        res.status(501).send({
-            "Status": "Mission Fail!",
-            "MissedwayPoints": missedWayPoints
-        });
+    let status = 200;
+    if ((evaluatedWayPoints.filter(point => point.status === "fail")).length > 0) {
+        status = 501;
     }
-    else {
-        res.status(200).send({
-            "Status": "Mission Pass!"
-        });
-    }
+
+    res.status(status).send(evaluatedWayPoints);
 };
 
 let calculateDifference = (data1, data2) => {
@@ -73,7 +68,7 @@ let calculateDistance = (data1, data2) => {
     return R * c;
 };
 
-let getMissedWaypoints = (planData, metaData) => {
+let evaluateWayPoints = (planData, metaData) => {
     let evalWayPoints = [];
     let errorMargins = vars.mission.error_margin;
 
@@ -87,13 +82,16 @@ let getMissedWaypoints = (planData, metaData) => {
         if (d > errorMargins.POSITION) {
             reason = "Error in Position";
         }
-        else if (calculateAltitudeDifference(curPlan['altitude(m)'], curMeta.altitude) > errorMargins.ALTITUDE) {
+        else if (calculateAltitudeDifference(curPlan['altitude(m)'], curMeta.altitude) >
+            errorMargins.ALTITUDE) {
             reason = "Error in Altitude";
         }
-        else if (calculateHeadingDifference(curPlan['heading(deg)'], curMeta.heading) > errorMargins.HEADING) {
+        else if (calculateHeadingDifference(curPlan['heading(deg)'], curMeta.heading) >
+            errorMargins.HEADING) {
             reason = "Error in Heading";
         }
-        else if (calculateGPADifference(curPlan['gimbalpitchangle'], curMeta.gimbalPitchAngle) > errorMargins.GIMBAL_PITCH) {
+        else if (calculateGPADifference(curPlan['gimbalpitchangle'], curMeta.gimbalPitchAngle) >
+            errorMargins.GIMBAL_PITCH) {
             reason = "Error in Gimbal pitch angle";
         }
 

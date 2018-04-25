@@ -44,7 +44,7 @@
             }
         };
 
-        let sort = () => {
+        let sortByFiles = () => {
             let sorted = [];
 
             vm.images.forEach(image => {
@@ -65,7 +65,7 @@
                 return;
             }
 
-            vm.metaData = vm.metaData.length !== 0 ? sort() : [];
+            vm.metaData = vm.metaData.length !== 0 ? sortByFiles() : [];
 
             let missionData = {
                 imageMetaData: vm.metaData,
@@ -87,10 +87,10 @@
 
             MissionService.validateMission(vm.userID, missionData)
                 .then(response => {
-                    vm.success = response.data.Status;
+                    vm.success = "Mission Pass";
                 }, (err) => {
-                    vm.error = err.data.Status;
-                    vm.missedWayPoints = err.data.MissedwayPoints;
+                    vm.error = "Mission Fail";
+                    vm.evaluatedWayPoints = err.data;
                 });
         };
 

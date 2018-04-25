@@ -104,8 +104,10 @@ let login = (req, res) => {
             },
 
             newPasswordRequired: (userAttributes, requiredAttributes) => {
-                if (body.hasOwnProperty("username") && body.hasOwnProperty("newPassword") && body.newPassword !== ""
-                    && body.newPassword !== null && body.hasOwnProperty("name") && body.name !== "" && body.name !== null) {
+                if (body.hasOwnProperty("username") && body.hasOwnProperty("newPassword")
+                    && body.newPassword !== "" && body.newPassword !== null
+                    && body.hasOwnProperty("name") && body.name !== "" && body.name !== null) {
+
                     const newPassword = body.newPassword;
                     const name = body.name;
                     cognitoUser.completeNewPasswordChallenge(newPassword, {"name": name}, {
@@ -136,10 +138,8 @@ let getCurrentUser = () => {
     let cognitoUser = userPool.getCurrentUser();
 
     if (cognitoUser != null) {
-        cognitoUser.getSession(function (err, result) {
-            if (result) {
-                console.log('You are now logged in.');
-            } else {
+        cognitoUser.getSession((err, result) => {
+            if (err) {
                 console.log("Error occured while fetching Cognito session: ", err);
                 return null;
             }
@@ -158,13 +158,13 @@ let getAllPlansByUser = (callback) => {
     let cognitoUser = userPool.getCurrentUser();
 
     if (cognitoUser != null) {
-        cognitoUser.getSession(function (err, result) {
+        cognitoUser.getSession((err, result) => {
             if (result) {
-                console.log('You are now logged in.');
+                let identityProvider = vars.cognito.IDENTITY_PROVIDER;
                 config.credentials = new CognitoIdentityCredentials({
                     IdentityPoolId: vars.cognito.IDENTITY_POOL_ID,
                     Logins: {
-                        'cognito-idp.us-east-1.amazonaws.com/us-east-1_93Nzmlf4k': result.getIdToken().getJwtToken()
+                        [identityProvider]: result.getIdToken().getJwtToken()
                     }
                 });
             } else {
@@ -184,7 +184,7 @@ let getAllPlansByUser = (callback) => {
             let s3 = new S3();
 
             let bucketParams = {
-                Bucket: 'drone-mission-plans',
+                Bucket: vars.s3.plan_bucket.NAME,
                 Prefix: config.credentials.identityId + "/"
             };
 
@@ -236,7 +236,8 @@ let isLoggedIn = (req, res) => {
 };
 
 let authenticate = (req, res, next) => {
-    let accessTokenFromClient = req.body.token || req.query.token || req.session.accessToken || req.headers['x-access-token'];
+    let accessTokenFromClient = req.body.token || req.query.token ||
+        req.session.accessToken || req.headers['x-access-token'];
 
     //Fail if token not present in header.
     if (!accessTokenFromClient) {

@@ -33,13 +33,13 @@ const config = {
         "MAX_AGE": eval(process.env.DMA_COOKIE_MAX_AGE)
     },
     "cognito": {
-        "REGION": "us-east-1",
-        "POOL_ID": "us-east-1_93Nzmlf4k",
-        "CLIENT_ID": "baps0i51gretrhpu8vdif6d1l",
+        "REGION": process.env.DMA_APP_COGNITO_REGION,
+        "POOL_ID": process.env.DMA_APP_COGNITO_POOL_ID,
+        "CLIENT_ID": process.env.DMA_APP_COGNITO_APP_CLIENT_ID,
         "TOKEN_TO_USE": "access",   //Possible Values: access | id
-        "TOKEN_EXPIRE_TIME": 3600000,
-        "IDENTITY_POOL_ID": "us-east-1:18f3fa03-6321-41c8-b741-e26cb1e2debf",
-        "IDENTITY_PROVIDER": "cognito-idp.us-east-1.amazonaws.com/us-east-1_93Nzmlf4k"
+        "TOKEN_EXPIRE_TIME": eval(process.env.DMA_COOKIE_MAX_AGE),
+        "IDENTITY_POOL_ID": process.env.DMA_APP_COGNITO_IDENTITY_POOL_ID,
+        "IDENTITY_PROVIDER": process.env.DMA_APP_COGNITO_IDENTITY_PROVIDER
     },
     "router": {
         "AUTH": "/auth",
@@ -50,6 +50,11 @@ const config = {
             "ALTITUDE": 10, //METRES
             "HEADING": 10,  //DEGREE
             "GIMBAL_PITCH": 10  //DEGREE
+        }
+    },
+    "s3": {
+        "plan_bucket": {
+            "NAME": "drone-mission-plans"
         }
     }
 
