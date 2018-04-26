@@ -9,7 +9,7 @@ Drones are opening up entirely new paradigms for commercial businesses. These fl
 ### Specification
 
 Commercial drone operators can contract the company and download pre-program inspection missions then visit the inspection site and fly the mission. After the mission is complete, the operator needs to send back data to mobile application to double check that the inspection is complete. The application needs a way to extract data from the images taken during the inspection and send it back to their cloud service for verification. The data that needs to be extracted from the pictures are standard EXIF data, XMP (DJI Metadata) and a thumbnail of each image.
-For more information, please refer * [Project Proposal] (#initial-project-proposal-and-release-planning)
+For more information, please refer [Project Proposal](#initial-project-proposal-and-release-planning) 
 
 ## Authors
 
@@ -19,8 +19,8 @@ For more information, please refer * [Project Proposal] (#initial-project-propos
 * **Taashi Priya Khurana**
 
 ## Demo
-* [Live Application] (http://ec2-34-239-183-215.compute-1.amazonaws.com:5000)
-* [Video] (https://youtu.be/Od2zie95-wU)
+* [Live Application](http://ec2-34-239-183-215.compute-1.amazonaws.com:5000)
+* [Video](https://youtu.be/Od2zie95-wU) 
 
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
@@ -29,14 +29,14 @@ These instructions will get you a copy of the project up and running on your loc
 
 Node, NPM and AWS Account for setting up the required services.
 
-* [Node Installation] (https://github.com/nodejs/node/wiki/Installation)
-* [AWS Configure]  (https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
+* [Node Installation](https://github.com/nodejs/node/wiki/Installation)
+* [AWS Configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
 
 ### AWS Setup
 
 * Cognito
-    * [Setup user pool] (https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html)
-    * [Attach an app] (https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-configuring-app-integration.html)
+    * [Setup user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html)
+    * [Attach an app](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-configuring-app-integration.html)
     * Create an Identity Pool using above generated User Pool ID and App client ID with Cognito as the Authentication provider.
     * Above step creates two roles -
         * Cognito_<IDENTITY_POOL_NAME>Auth_Role (More on this later)
@@ -50,8 +50,8 @@ Node, NPM and AWS Account for setting up the required services.
     * Name of the object should be user's identity pool id (More on it later)
 
 * IAM 
-    * Attach following policy to the role - Cognito_<IDENTITY_POOL_NAME>Auth_Role
-    [More info] (https://docs.aws.amazon.com/cognito/latest/developerguide/iam-roles.html)
+    * Attach following policy to the role - Cognito_<IDENTITY_POOL_NAME>Auth_Role.
+    [More info](https://docs.aws.amazon.com/cognito/latest/developerguide/iam-roles.html)
     ```
     {
         "Version": "2012-10-17",
